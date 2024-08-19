@@ -1,0 +1,5 @@
+Item Based Recomender System: Which is based on the similarity between items calculated using people's ratings of those items.
+Collaborative Filtering: A technique used by recommender systems to make predictions about an interest of a user by collecting preferences from many users.
+Hybrid System: A system that combines two or more recommendation techniques to produce better results.
+
+
