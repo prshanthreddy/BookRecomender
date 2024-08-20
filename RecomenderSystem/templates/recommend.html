@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommender System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1b1b1b;
+            color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #28a745;
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: #f8f9fa !important;
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            background-color: #2d2d2d;
+            color: #f8f9fa;
+            border: 1px solid #555;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #2d2d2d;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-img-top {
+            max-height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            color: #f8f9fa;
+            font-size: 1.25rem;
+            margin-top: 15px;
+        }
+
+        .card-text {
+            color: #adb5bd;
+        }
+        .autocomplete-suggestions {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            color: #000;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            z-index: 9999;
+            width: 100%;
+        }
+
+        .autocomplete-suggestion {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-suggestion:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="/">Get Movie Recommendations</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/recommend">Recommend</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1>I Recommend Books</h1>
+                <form action="/recommend_books" method="post">
+                    <input name="user_input" type="text" class="form-control" placeholder="Enter keyword"><br>
+                    <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+                    <input type="submit" class="btn btn-lg btn-warning btn-block" value="Get Recommendations">
+                </form>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            {% if data %}
+                {% for i in data %}
+                    <div class="col-md-3">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top" src="{{i[2]}}" alt="{{i[0]}}">
+                            <div class="card-body">
+                                <p class="card-text">Title : {{i[0]}}</p>
+                                <h5 class="card-title">Author: {{i[1]}}</h5>
+                                <p class="card-text">Number of Ratings: {{i[3]}}</p>
+                                <p class="card-text">Average Ratings: {{i[4]}}🌟</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-md-12 text-center">
+                    <p class="text-muted">No recommendations available. Please enter a genre or keyword above.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
