@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import pickle
 import numpy as np
+import pandas as pd
 
 # Load the required data
-popular_df = pickle.load(open('popular.pkl', 'rb'))
+popular_dict = pickle.load(open('popular_dict.pkl', 'rb'))
 pt = pickle.load(open('pt.pkl', 'rb'))
-books = pickle.load(open('books.pkl', 'rb'))
+books_dict = pickle.load(open('books_dict.pkl', 'rb'))
 similarity_scores = pickle.load(open('similarity_scores.pkl', 'rb'))
+
+popular_df=pd.DataFrame(popular_dict)
+books=pd.DataFrame(books_dict)
 
 
 app = Flask(__name__)
